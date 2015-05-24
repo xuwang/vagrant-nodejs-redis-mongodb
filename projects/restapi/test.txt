@@ -1,0 +1,29 @@
+call
+	curl -k https://localhost:3000/api/v1/products
+return
+	{"status":401,"message":"Invalid Token or Key"}
+
+call
+	curl -k -H "Content-type: application/json" -X POST --data @login.json https://localhost:3000/login
+return
+	{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0MzMxMTIzNDg5MzV9.2J058H9DifOR6aaCmIyT58oZY9o70MN51v1_I-FrYYY","expires":1433112348935,"user":{"name":"dockerage","role":"admin","username":"dockerage@gmail.com"}}
+	
+	
+call
+	curl -k \
+		-H "x-access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0MzMxMTIzNDg5MzV9.2J058H9DifOR6aaCmIyT58oZY9o70MN51v1_I-FrYYY" \
+		-H "x-key:dockerage@gmail.com" \
+		-H "Content-type: application/json" \
+		https://localhost:3000/api/v1/products
+return
+	[{"name":"product 1","id":"1"},{"name":"product 2","id":"2"},{"name":"product 3","id":"3"}]
+	
+	
+call
+	curl -k \
+		-H "x-access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0MzMxMTIzNDg5MzV9.2J058H9DifOR6aaCmIyT58oZY9o70MN51v1_I-FrYYY" \
+		-H "x-key:dockerage@gmail.com" \
+		-H "Content-type: application/json" \
+		https://localhost:3000/api/v1/admin/users
+return
+	{"status":403,"message":"Not Authorized"}

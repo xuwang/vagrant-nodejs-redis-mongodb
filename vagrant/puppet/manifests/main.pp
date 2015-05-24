@@ -48,6 +48,7 @@ class nodejs {
 
   exec { "install_node":
     command => "n stable",
+	timeout => 600,
     path => ["/bin", "/usr/bin", "/usr/local/bin"],  
     require => [Exec["git_clone_n"], Exec["install_n"]]
   }
@@ -69,6 +70,13 @@ class mongodb {
 class redis-cl {
   class { 'redis': }
 }
+
+# preferred symlink syntax
+file { '/home/vagrant/shared':
+   ensure => 'link',
+   target => '/vagrant',
+}
+
 
 include apt_update
 include othertools
