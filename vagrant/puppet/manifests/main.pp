@@ -55,6 +55,7 @@ class nodejs {
   
   exec { "install_slush":
   	command => "npm i -g gulp slush slush-ng",
+	timeout => 600,
 	path => ["/bin", "/usr/bin", "/usr/local/bin"],
 	cwd => "/home/vagrant",
 	require => Exec["install_node"]
