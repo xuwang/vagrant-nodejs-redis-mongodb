@@ -52,6 +52,13 @@ class nodejs {
     path => ["/bin", "/usr/bin", "/usr/local/bin"],  
     require => [Exec["git_clone_n"], Exec["install_n"]]
   }
+  
+  exec { "install_slush":
+  	command => "npm i -g gulp slush slush-ng",
+	path => ["/bin", "/usr/bin", "/usr/local/bin"],
+	cwd => "/home/vagrant",
+	require => Exec["install_node"]
+  }
 }
 
 class mongodb {
